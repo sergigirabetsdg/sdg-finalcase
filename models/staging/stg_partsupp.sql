@@ -1,5 +1,4 @@
 SELECT
-    CONCAT(ps_partkey, ps_suppkey) AS partsupp_id,
     ps_partkey AS part_id,
     ps_suppkey AS supplier_id,
     ps_availqty AS partsupp_quantity_available,
