@@ -1,0 +1,5 @@
+SELECT
+    n_nationkey AS nation_id,
+    lower(n_name) AS nation_name,
+    n_regionkey AS region_id
+FROM {{ source('tpch_sf1', 'nation') }}
