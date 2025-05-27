@@ -23,4 +23,4 @@ final as (
     left join region r ON n.region_id = r.region_id
 )
 
-select * from final_supplier
+select * from final

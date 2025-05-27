@@ -24,4 +24,4 @@ final as (
     left join region r on n.region_id = r.region_id
 ) 
 
-select * from final_customer
+select * from final
