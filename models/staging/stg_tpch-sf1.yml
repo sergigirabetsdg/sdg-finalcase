@@ -1,0 +1,146 @@
+version: 2
+
+models:
+
+# ------------------------
+# TEST FOR STAGING MODELS
+# ------------------------
+
+  - name: stg_customer
+    description: "Contiene los datos crudos de los clientes"
+    columns:
+      - name: customer_id
+        description: "Identificador único del cliente"
+        tests:
+          - not_null
+          - unique
+      - name: nation_id
+        description: "Identificador del país de origen del cliente"
+        tests:
+          - relationships:
+              to: ref('stg_nation')
+              field: nation_id
+
+  - name: stg_lineitem
+    description: "Contiene los datos crudos de las líneas de pedido"
+    columns:
+      - name: order_id
+        description: "Identificador del pedido al que pertenece la línea"
+        tests:
+          - not_null
+      - name: part_id
+        description: "Identificador de la pieza"
+        tests:
+          - relationships:
+              to: ref('stg_part')
+              field: part_id
+      - name: supplier_id
+        description: "Identificador del proveedor"
+        tests:
+          - relationships:
+              to: ref('stg_supplier')
+              field: supplier_id
+      - name: item_line_number
+        description: "Número de línea dentro del pedido"
+        tests:
+          - not_null
+      - name: item_return_flag
+        description: "Código que indica si el producto fue devuelto ('R'), aceptado ('A') o no devuelto ('N')"
+        tests:
+          - accepted_values:
+              values: ['A', 'R', 'N']
+      - name: item_line_status
+        description: "Estado de la línea: abierta ('O') o completada ('F')"
+        tests:
+          - accepted_values:
+              values: ['O', 'F']
+  - name: stg_nation
+    description: "Tabla de naciones"
+    columns:
+      - name: nation_id
+        description: "Identificador único de la nación"
+        tests:
+          - not_null
+          - unique
+      - name: region_id
+        description: "Identificador de la región a la que pertenece"
+        tests:
+          - relationships:
+              to: ref('stg_region')
+              field: region_id
+
+  - name: stg_orders
+    description: "Contiene los datos crudos de los pedidos"
+    columns:
+      - name: order_id
+        description: "Identificador único del pedido"
+        tests:
+          - not_null
+          - unique
+      - name: customer_id
+        description: "Identificador del cliente que realizó el pedido"
+        tests:
+          - relationships:
+              to: ref('stg_customer')
+              field: customer_id
+      - name: order_status
+        description: "Código de estado del pedido ('F', 'O' o 'P')"
+        tests:
+          - accepted_values:
+              values: ['F', 'O', 'P']
+
+  - name: stg_part
+    description: "Datos en crudo de las piezas disponibles en catálogo"
+    columns:
+      - name: part_id
+        description: "Identificador único de la pieza"
+        tests:
+          - not_null
+          - unique
+
+  - name: stg_partsupp
+    description: "Contiene los datos crudos de la relación entre piezas y proveedores."
+    columns:
+      - name: part_id
+        description: "Identificador de la pieza"
+        tests:
+          - relationships:
+              to: ref('stg_part')
+              field: part_id
+
+      - name: supplier_id
+        description: "Identificador del proveedor"
+        tests:
+          - relationships:
+              to: ref('stg_supplier')
+              field: supplier_id
+
+  - name: stg_region
+    description: "Contiene los datos crudos de las regiones"
+    columns:
+      - name: region_id
+        description: "Identificador único de la región"
+        tests:
+          - not_null
+          - unique
+
+  - name: stg_supplier
+    description: "Contiene los datos crudos de los proveedores"
+    columns:
+      - name: supplier_id
+        description: "Identificador único del proveedor"
+        tests:
+          - not_null
+          - unique
+
+      - name: supplier_address
+        description: "Dirección física del proveedor"
+
+      - name: nation_id
+        description: "Identificador de la nación del proveedor"
+        tests:
+          - relationships:
+              to: ref('stg_nation')
+              field: nation_id
+
+

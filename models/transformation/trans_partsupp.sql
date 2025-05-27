@@ -1,5 +1,5 @@
 SELECT
-    CONCAT(part_id, supplier_id) AS partsupp_id,
+    CONCAT(part_id, '-', supplier_id) AS partsupp_id,
     part_id,
     supplier_id,
     partsupp_quantity_available,

@@ -12,12 +12,10 @@ SELECT
         WHEN 'R' THEN 'Returned'
         WHEN 'A' THEN 'Accepted'
         WHEN 'N' THEN 'Not Returned'
-        ELSE 'Unknown'  
     END AS item_return_flag,
     CASE item_line_status
         WHEN 'O' THEN 'Open'
         WHEN 'F' THEN 'Filled'
-        ELSE 'Unknown'
     END AS item_line_status,
     item_ship_date,
     item_commit_date,

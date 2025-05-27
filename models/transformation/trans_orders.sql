@@ -5,7 +5,6 @@ SELECT
         WHEN 'F' THEN 'Finalized'
         WHEN 'O' THEN 'Open'
         WHEN 'P' THEN 'Pending'
-        ELSE 'Unknown'
     END AS order_status,
     order_total_price,
     order_date,
