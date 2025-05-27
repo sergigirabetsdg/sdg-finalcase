@@ -123,6 +123,11 @@ models:
         tests:
           - not_null
           - unique
+      - name: region_name
+        description: "Regiones posibles ('africa', 'america', 'asia', 'europe', o 'middle east')"
+        tests:
+          - accepted_values:
+              values: ['africa', 'america', 'asia', 'europe', 'middle east']
 
   - name: stg_supplier
     description: "Contiene los datos crudos de los proveedores"

@@ -12,8 +12,8 @@ SELECT
     MONTH(order_date) AS order_month,
     CAST(SPLIT_PART(order_priority, '-', 1) AS INT) AS order_priority_level,
     CASE
-        WHEN SPLIT_PART(order_priority, '-', 1) = '4' THEN 'STANDARD'
-        ELSE SPLIT_PART(order_priority, '-', 2) 
+        WHEN SPLIT_PART(order_priority, '-', 1) = '4' THEN 'standard'
+        ELSE lower(SPLIT_PART(order_priority, '-', 2)) 
     END AS order_priority_desc,
     CAST(REPLACE(clerk_id, 'Clerk#', '') AS INT) AS clerk_id
 FROM {{ ref('stg_orders') }}

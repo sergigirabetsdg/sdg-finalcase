@@ -50,10 +50,10 @@ models:
               values: [1, 2, 3, 4, 5]
 
       - name: order_priority_desc
-        description: "Descripción de la prioridad del pedido ('URGENT', 'HIGH', 'MEDIUM', 'STANDARD', 'LOW')"
+        description: "Descripción de la prioridad del pedido ('urgent', 'high', 'medium', 'standard', 'low')"
         tests:
           - accepted_values:
-              values: ['URGENT', 'HIGH', 'MEDIUM', 'STANDARD', 'LOW']
+              values: ['urgent', 'high', 'medium', 'standard', 'low']
 
   - name: trans_partsupp
     description: "Relación entre piezas y proveedores con limpieza."
