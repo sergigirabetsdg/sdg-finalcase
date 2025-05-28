@@ -8,10 +8,10 @@ data_tests:
 
   - name: assert_positive_item_quantity
     description: >
-      Asegura que la cantidad (`item_quantity`) en la tabla `stg_lineitem` sea 0 o positiva.
+      Asegura que la cantidad `item_quantity` en la tabla `stg_lineitem` sea 0 o positiva.
 
   - name: assert_receipt_after_shipping
     description: >
-      Verifica que la fecha de recepción (`item_receipt_date`) sea posterior a la fecha de envío (`item_ship_date`)
+      Verifica que la fecha de recepción `item_receipt_date` sea posterior a la fecha de envío `item_ship_date`
       para cada registro en la tabla `stg_lineitem`.
  
