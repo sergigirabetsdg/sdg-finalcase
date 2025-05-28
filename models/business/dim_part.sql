@@ -1,4 +1,4 @@
-select
+SELECT
     part_id,
     part_name,
     part_manufacturer,
@@ -7,4 +7,4 @@ select
     part_size,
     part_container,
     part_retail_price
-from {{ ref('trans_part') }}
+FROM {{ ref('trans_part') }}

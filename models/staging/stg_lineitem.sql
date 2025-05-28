@@ -1,16 +1,18 @@
 {{ config(
     materialized='incremental',
-    unique_key=['l_orderkey', 'l_linenumber']
+    unique_key=['order_id', 'item_line_number']
 ) }}
-
-WITH lineitem AS (
+WITH max_commitdate AS (
+    SELECT MAX(item_commit_date) AS last_commitdate
+    FROM {{ this }}
+),
+lineitem AS (
     SELECT *
     FROM {{ source('tpch_sf1', 'lineitem') }}
     {% if is_incremental() %}
-        WHERE l_commitdate > (SELECT MAX(l_commitdate) FROM {{ this }})
+        WHERE l_commitdate > (SELECT last_commitdate FROM max_commitdate)
     {% endif %}
 )
-
 SELECT
     l_orderkey AS order_id,
     l_partkey AS part_id,

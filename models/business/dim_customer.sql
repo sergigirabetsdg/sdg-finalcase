@@ -1,17 +1,17 @@
-with customer as (
-    select * from {{ ref('trans_customer') }}
+WITH customer AS (
+    SELECT * FROM {{ ref('trans_customer') }}
 ),
 
-region as (
-    select * from {{ ref('trans_region') }}
+region AS (
+    SELECT * FROM {{ ref('trans_region') }}
 ),
 
-nation as (
-    select * from {{ ref('trans_nation') }}
+nation AS (
+    SELECT * FROM {{ ref('trans_nation') }}
 ),
 
-final as (
-    select 
+final AS (
+    SELECT 
         c.customer_id,
         c.customer_address,
         c.customer_phone,
@@ -19,9 +19,9 @@ final as (
         c.customer_market_segment,
         n.nation_name,
         r.region_name
-    from customer c 
-    left join nation n on c.nation_id = n.nation_id 
-    left join region r on n.region_id = r.region_id
+    FROM customer c 
+    left join nation n ON c.nation_id = n.nation_id 
+    left join region r ON n.region_id = r.region_id
 ) 
 
-select * from final
+SELECT * FROM final

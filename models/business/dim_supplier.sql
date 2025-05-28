@@ -1,26 +1,26 @@
-with supplier as (
-    select * from {{ ref('stg_supplier') }}
+WITH supplier AS (
+    SELECT * FROM {{ ref('stg_supplier') }}
 ),
 
-region as (
-    select * from {{ ref('trans_region') }}
+region AS (
+    SELECT * FROM {{ ref('trans_region') }}
 ),
 
-nation as (
-    select * from {{ ref('trans_nation') }}
+nation AS (
+    SELECT * FROM {{ ref('trans_nation') }}
 ),
 
-final as (
-    select
+final AS (
+    SELECT
         s.supplier_id,
         s.supplier_address,
         s.supplier_phone,
         s.supplier_account_balance,
         n.nation_name,
         r.region_name
-    from supplier s
+    FROM supplier s
     left join nation n ON s.nation_id = n.nation_id
     left join region r ON n.region_id = r.region_id
 )
 
-select * from final
+SELECT * FROM final
