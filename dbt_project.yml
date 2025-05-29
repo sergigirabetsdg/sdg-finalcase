@@ -37,13 +37,10 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 models:
   sdg_finalcase:
-    example:
-      +materialized: table
     staging:
       +materialized: table
     transformation:
-      +materialized: table
-    business:
       +materialized: view
-      fct_line_items:
-        +materialized: table
+    business:
+      +materialized: table
+
