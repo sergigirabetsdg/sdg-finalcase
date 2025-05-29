@@ -16,6 +16,9 @@ supplier AS (
 
 partsupp AS (
     SELECT * from {{ ref('trans_partsupp') }}
+), 
+customer AS (
+    SELECT * from {{ ref('dim_customer') }}
 ),
 
 calculated_items_prices AS (
@@ -32,10 +35,12 @@ calculated_items_prices AS (
 
 final AS (
     SELECT
-        --- composed PK ---
+        --- PK ---
         ci.item_id,
+        
+        --- FK ---  
         ci.order_id,
-        o.customer_id,
+        cust.customer_id,
         ci.part_id,
         ci.supplier_id,
         
@@ -55,6 +60,7 @@ final AS (
 
     FROM calculated_items_prices ci
     left join orders o ON ci.order_id = o.order_id
+    left join customer cust ON o.customer_id = cust.customer_id
     left join part p ON ci.part_id = p.part_id
     left join supplier s ON ci.supplier_id = s.supplier_id
 )
