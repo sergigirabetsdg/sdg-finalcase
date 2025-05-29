@@ -1,24 +1,29 @@
 WITH line_item AS (
-        SELECT * from {{ ref('trans_lineitem') }}
+        SELECT * FROM {{ ref('trans_lineitem') }}
 ),
 
 orders AS  (
-    SELECT * from {{ ref ('dim_orders' )}}
+    SELECT * FROM {{ ref ('dim_orders' )}}
 ),
 
 part AS (
-    SELECT * from {{ ref ('dim_part') }}
+    SELECT * FROM {{ ref ('dim_part') }}
 ),
 
 supplier AS (
-    SELECT * from {{ ref('dim_supplier') }}
+    SELECT * FROM {{ ref('dim_supplier') }}
 ),
 
 partsupp AS (
-    SELECT * from {{ ref('trans_partsupp') }}
+    SELECT * FROM {{ ref('trans_partsupp') }}
 ), 
+
 customer AS (
-    SELECT * from {{ ref('dim_customer') }}
+    SELECT * FROM {{ ref('dim_customer') }}
+),
+
+geography AS (
+    SELECT * FROM {{ ref('dim_geography') }}
 ),
 
 calculated_items_prices AS (
@@ -43,7 +48,9 @@ final AS (
         cust.customer_id,
         ci.part_id,
         ci.supplier_id,
-        
+        g_cust.nation_id AS customer_nation_id,
+        g_supp.nation_id AS supplier_nation_id,
+
         --- metrics ---
         ci.item_quantity,
         ci.item_extended_price,
@@ -63,6 +70,9 @@ final AS (
     left join customer cust ON o.customer_id = cust.customer_id
     left join part p ON ci.part_id = p.part_id
     left join supplier s ON ci.supplier_id = s.supplier_id
+    left join geography g_cust ON cust.nation_id = g_cust.nation_id
+    left join geography g_supp ON s.nation_id = g_supp.nation_id
+
 )
 
 SELECT * FROM final
