@@ -42,6 +42,8 @@ models:
     staging:
       +materialized: table
     transformation:
-      +materialized: view
-    business:
       +materialized: table
+    business:
+      +materialized: view
+      fct_line_items:
+        +materialized: table
