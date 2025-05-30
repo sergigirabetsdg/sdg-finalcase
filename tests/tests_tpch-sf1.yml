@@ -1,0 +1,17 @@
+version: 2
+
+data_tests:
+
+  - name: assert_discount_range
+    description: >
+      Verifica que los valores del campo `item_discount` estén dentro del rango válido entre 0 y 1 incluídos.
+
+  - name: assert_positive_item_quantity
+    description: >
+      Asegura que la cantidad `item_quantity` en la tabla `stg_lineitem` sea 0 o positiva.
+
+  - name: assert_receipt_after_shipping
+    description: >
+      Verifica que la fecha de recepción `item_receipt_date` sea posterior a la fecha de envío `item_ship_date`
+      para cada registro en la tabla `stg_lineitem`.
+ 

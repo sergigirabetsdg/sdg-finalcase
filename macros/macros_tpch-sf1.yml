@@ -1,0 +1,81 @@
+version: 2
+
+macros:
+  - name: calc_discount_from_retail
+    description: >
+      Calcula el descuento por unidad sobre el precio de venta al público (retail price),
+      comparado con el precio neto aplicado al total de unidades.
+    arguments:
+      - name: retail_price
+        type: number
+        description: Precio de venta al público de la pieza.
+      - name: net_price
+        type: number
+        description: Precio total neto después del descuento.
+      - name: quantity
+        type: integer
+        description: Número de unidades vendidas para calcular el descuento unitario.
+
+  - name: calc_discounted_price
+    description: >
+      Calcula el precio total aplicando el descuento y el impuesto sobre el precio extendido.
+    arguments:
+      - name: extended_price
+        type: number
+        description: Precio bruto del ítem (sin aplicar descuentos ni impuestos).
+      - name: discount
+        type: number
+        description: Porcentaje de descuento a aplicar.
+      - name: tax
+        type: number
+        description: Porcentaje de impuesto a aplicar sobre el precio neto.
+
+  - name: calc_unit_margin
+    description: >
+      Calcula el margen unitario como la diferencia entre el precio neto por unidad y el coste de suministro.
+    arguments:
+      - name: net_price
+        type: number
+        description: Precio neto total después de aplicar el descuento.
+      - name: quantity
+        type: integer
+        description: Número de unidades del ítem.
+      - name: supply_cost
+        type: number
+        description: Coste de suministro por unidad.
+
+  - name: calc_total_margin
+    description: >
+      Calcula el margen total restando el coste total de suministro del precio neto total.
+    arguments:
+      - name: net_price
+        type: number
+        description: Precio neto total (después del descuento).
+      - name: total_cost
+        type: number
+        description: Coste total (supply_cost * cantidad).
+
+  - name: calc_margin_pct
+    description: >
+      Calcula el margen porcentual con respecto al coste total del ítem.
+    arguments:
+      - name: net_price
+        type: number
+        description: Precio neto total (después de aplicar descuento).
+      - name: total_cost
+        type: number
+        description: Coste total del ítem.
+
+  - name: calc_item_delivery
+    description: >
+      Calcula el tiempo de entrega como la diferencia de días entre la fecha de envío y la fecha de recepción.
+    arguments:
+      - name: ship_date
+        type: date
+        description: Fecha en la que el ítem fue enviado.
+      - name: receipt_date
+        type: date
+        description: Fecha en la que el ítem fue recibido.
+      - name: unit
+        type: string (opcional, default='day')
+        description: Unidad de tiempo para calcular la diferencia ('day', 'hour', etc.).

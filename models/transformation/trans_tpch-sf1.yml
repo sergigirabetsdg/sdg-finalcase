@@ -1,0 +1,65 @@
+version: 2
+
+models:
+
+# ------------------------------
+# TEST FOR TRANSFORMATION MODELS
+# ------------------------------
+
+  - name: trans_customer
+    description: "Datos de clientes con limpieza"
+    columns:
+      - name: customer_market_segment
+        description: "Segmento de mercado en minúsculas y validado"
+        tests:
+          - accepted_values:
+              values: ['automobile', 'building', 'furniture', 'household', 'machinery']
+
+  - name: trans_lineitem
+    description: "Líneas de pedido con limpieza"
+    columns:
+      - name: item_id
+        description: "Clave primaria compuesta (order_id + line_number) usada como identificador único"
+        tests:
+          - not_null
+          - unique
+      - name: item_return_flag
+        description: "Descripción textual del flag de devolución"
+        tests:
+          - accepted_values:
+              values: ['Returned', 'Accepted', 'Not Returned']
+      - name: item_line_status
+        description: "Descripción textual del estado de línea"
+        tests:
+          - accepted_values:
+              values: ['Open', 'Filled']
+
+  - name: trans_orders
+    description: "Pedidos con limpieza."
+    columns:
+      - name: order_status
+        description: "Descripción del estado del pedido"
+        tests:
+          - accepted_values:
+              values: ['Finalized', 'Open', 'Pending']
+
+      - name: order_priority_level
+        description: "Nivel de prioridad del pedido (entero entre 1 y 5)"
+        tests:
+          - accepted_values:
+              values: [1, 2, 3, 4, 5]
+
+      - name: order_priority_desc
+        description: "Descripción de la prioridad del pedido ('urgent', 'high', 'medium', 'standard', 'low')"
+        tests:
+          - accepted_values:
+              values: ['urgent', 'high', 'medium', 'standard', 'low']
+
+  - name: trans_partsupp
+    description: "Relación entre piezas y proveedores con limpieza."
+    columns:
+      - name: partsupp_id
+        description: "Clave primaria compuesta generada a partir de part_id y supplier_id"
+        tests:
+          - not_null
+          - unique
